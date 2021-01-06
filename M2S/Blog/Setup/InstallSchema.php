@@ -1,22 +1,19 @@
 <?php
 
-
 namespace M2S\Blog\Setup;
 
-
+use Magento\Framework\DB\Ddl\Table;
 use Magento\Framework\Setup\InstallSchemaInterface;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\SchemaSetupInterface;
-use Magento\Framework\DB\Ddl\Table;
 
 class InstallSchema implements InstallSchemaInterface
 {
-
     public function install(SchemaSetupInterface $setup, ModuleContextInterface $context)
     {
         $setup->startSetup();
 
-            $table = $setup->getConnection()->newTable(
+        $table = $setup->getConnection()->newTable(
                 $setup->getTable('m2s_blog')
             )->addColumn(
                 'id',
@@ -37,9 +34,11 @@ class InstallSchema implements InstallSchemaInterface
                 ['nullable' => false, 'default' => Table::TIMESTAMP_INIT],
                 'Post created time'
             )->addIndex(
-                $setup->getIdxName('m2s_blog', ['id']),
-                ['name']
+                $setup->getIdxName('m2s_blog', ['title']),
+                ['title']
             )->setComment('M2S Blog');
+
+        $setup->getConnection()->createTable($table);
 
         $setup->endSetup();
     }
