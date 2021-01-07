@@ -1,0 +1,6 @@
+<?php
+/** var \M2S\Blog\Block\Items $block */
+?>
+<?php foreach ($block->getItems() as $item): ?>
+<p><?php echo $item->getTitle(); ?><?php echo $item->getCreatedAt(); ?></p>
+<?php endforeach; ?>
