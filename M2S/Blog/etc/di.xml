@@ -7,4 +7,13 @@
             </argument>
         </arguments>
     </type>
+    <preference for="M2S\Blog\Api\Data\ItemInterface" type="M2S\Blog\Model\Item"/>
+    <preference for="M2S\Blog\Api\ItemRepositoryInterface" type="M2S\Blog\Model\ItemRepository"/>
+    <type name="Magento\Framework\View\Element\UiComponent\DataProvider\CollectionFactory">
+        <arguments>
+            <argument name="collections" xsi:type="array">
+                <item name="m2s_items_grid_data_source" xsi:type="string">M2S\Blog\Model\ResourceModel\Item\Grid\Collection</item>
+            </argument>
+        </arguments>
+    </type>
 </config>
