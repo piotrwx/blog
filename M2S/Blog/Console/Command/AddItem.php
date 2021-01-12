@@ -4,6 +4,7 @@
 namespace M2S\Blog\Console\Command;
 
 
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Console\Command\Command;
 use M2S\Blog\Model\ItemFactory;
 use Magento\Framework\Console\Cli;
@@ -17,9 +18,13 @@ class AddItem extends Command
 
     private $itemFactory;
 
+    private $logger;
+
     public function __construct(
-        ItemFactory $itemFactory
+        ItemFactory $itemFactory,
+        LoggerInterface $logger
     ) {
+        $this->logger = $logger;
         $this->itemFactory = $itemFactory;
         parent::__construct();
     }
@@ -42,6 +47,7 @@ class AddItem extends Command
         $item->setTitle($input->getArgument(self::INPUT_KEY_NAME));
         $item->setIsObjectNew(true);
         $item->save();
+        $this->logger->debug('Item was created!');
         return Cli::RETURN_SUCCESS;
     }
 }
